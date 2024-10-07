@@ -14,9 +14,8 @@ datasource db {
 }
 
 model User {
-  id Int @id 
-  email String @unique
+  id         Int     @id
+  email      String  @unique
   first_name String
-  last_name String?
-
+  last_name  String?
 }
