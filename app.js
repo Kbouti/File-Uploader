@@ -17,6 +17,16 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+
+
+// const { PrismaClient } = require('@prisma/client')
+
+// const prisma = new PrismaClient()
+// // use `prisma` in your application to read and write data in your DB
+
+
+
+
 app.listen(3000, () => console.log("app listening on port 3000!"));
 
 app.use("/", indexRouter);
