@@ -5,6 +5,7 @@ const LocalStrategy = require("passport-local").Strategy;
 // const bcrypt = require("bcryptjs");
 // require("dotenv").config();
 
+const indexRouter = require("./routers/indexRouter");
 
 const app = express();
 
@@ -19,7 +20,5 @@ app.use(express.urlencoded({ extended: false }));
 
 app.listen(3000, () => console.log("app listening on port 3000!"));
 
-// app.use("/", indexRouter);
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-})
+app.use("/", indexRouter);
+
