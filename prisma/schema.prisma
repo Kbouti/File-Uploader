@@ -14,8 +14,9 @@ datasource db {
 }
 
 model User {
-  id         Int     @id
+  id         Int     @id @default(autoincrement())
   email      String  @unique
   first_name String
   last_name  String?
+  is_admin  Boolean
 }
