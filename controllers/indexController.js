@@ -20,19 +20,25 @@ async function main() {
 
 exports.getIndex = async (req, res) => {
   console.log(`getIndex controller function called`);
-
-
-
-  main()
-  .catch((e) => {
-    console.error(e.message);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
-
-
-
+//   main()
+//   .catch((e) => {
+//     console.error(e.message);
+//   })
+//   .finally(async () => {
+//     await prisma.$disconnect();
+//   });
 
   res.render("./views/pages/home");
 };
+
+
+exports.logUsers = async (req, res) => {
+    console.log(`logUsers controller function called`);
+
+
+    const users = await prisma.user.findMany();
+    console.log(`users: `);
+    console.log(users);
+
+    res.redirect("/");
+}
