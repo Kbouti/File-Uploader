@@ -42,3 +42,13 @@ exports.logUsers = async (req, res) => {
 
     res.redirect("/");
 }
+
+exports.getSignUp = async (req, res) => {
+    console.log(`getSignUp controller function called`);
+    res.render("./views/pages/signUp");
+}
+
+exports.postSignUp = async (req, res) => {
+    console.log(`postSignUp controller function called`);
+    res.redirect("/");
+}
