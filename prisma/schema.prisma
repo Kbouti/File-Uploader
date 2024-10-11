@@ -18,5 +18,10 @@ model User {
   email      String  @unique
   first_name String
   last_name  String?
-  is_admin  Boolean
+  is_admin   Boolean
 }
+
+// attempted to transfer email to username change using: 
+// npx prisma migrate dev
+// Unsuccessful, changes cannot be executed. 
+// Why can't I view this table in psql?????
