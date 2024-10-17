@@ -49,16 +49,14 @@ exports.postSignUp = async (req, res) => {
 
   const newUser = await prisma.user.create({
     data: {
-      first_name: req.body.firstName,
-      last_name: req.body.lastName,
-      email: req.body.username,
+      username: req.body.username,
+      password: req.body.password,
       is_admin: false,
     },
   });
 
-// 1. Our form declares username, our database calls this field email. 
-// 2. Where can we see this data???? We can log it and confirm our user is added, but where is this being stored???
-// 3. Need to implement password encryption
+// 1. Need password encryption
+// 2. Need error handling if passwords don't match
 
   res.redirect("/");
 };
