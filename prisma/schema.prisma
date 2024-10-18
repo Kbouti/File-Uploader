@@ -18,7 +18,8 @@ model User {
   username String
   password String
   is_admin Boolean  @default(false)
-  folders  Folder[]
+  Folders  Folder[]
+  Files     File[]
 }
 
 model Folder {
@@ -27,7 +28,20 @@ model Folder {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   String   @unique
+  ownerId   String
+  // I don't think owner needs to be set to unique? Then one person couldn't own multiple folders
+  File      File[]
+}
+
+model File {
+  id       String @id @default(cuid())
+  name     String
+  // Can I make the name unique among files by the same owner? prolly
+  owner    User   @relation(fields: [ownerId], references: [id])
+  ownerId  String
+  folderId String
+  folder   Folder @relation(fields: [folderId], references: [id])
+  // Consider adding type field? for example jpg, video, word doc?
 }
 
 // We've created a folder model, this will contain user's files. Must be connected to a single owner
