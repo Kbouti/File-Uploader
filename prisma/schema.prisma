@@ -31,7 +31,15 @@ model Folder {
   ownerId   String
   // I don't think owner needs to be set to unique? Then one person couldn't own multiple folders
   File      File[]
+  base Boolean @default(false)
 }
+// ************************************************************************************************************************************************
+// base:
+// Should creating a user automatically create a folder? This would be the parent folder for that user, and all other folders they make would exist inside. 
+// This wouldn't be done automatically in prisma, we would manually create a folder when we create a user. All other folders owned by this user would reside in this default folder. 
+// The base attribute will determine whether a folder is the base for a user. 
+// Base folders cannot be deleted by the user, only if the user themself is deleted. 
+
 
 model File {
   id       String @id @default(cuid())
