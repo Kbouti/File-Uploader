@@ -13,7 +13,12 @@ app.use(express.static("public"));
 app.set("views", __dirname);
 app.set("view engine", "pug");
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
+
+// Secret copied from setup tutorial is "cats". I changed this and set it in .env
+// Not sure if this will break things....
+const secret = process.env.SECRET;
+
+app.use(session({ secret, resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
