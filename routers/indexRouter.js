@@ -11,6 +11,8 @@ indexRouter.get("/signUp", indexController.getSignUp)
 
 indexRouter.post("/signUp", indexController.postSignUp)
 
+indexRouter.get("/logIn", indexController.getLogIn)
+
 
 
 module.exports = indexRouter;

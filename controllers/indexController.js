@@ -60,3 +60,9 @@ exports.postSignUp = async (req, res) => {
 
   res.redirect("/");
 };
+
+
+exports.getLogIn = async (req, res) => {
+  console.log(`getLogIn controller function called`);
+  res.render("./views/pages/logIn");
+}
