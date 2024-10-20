@@ -26,7 +26,7 @@ exports.getIndex = async (req, res) => {
   //     await prisma.$disconnect();
   //   });
 
-  res.render("./views/pages/home");
+  res.render("./views/pages/home", { title: "File Uploader" });
 };
 
 exports.logUsers = async (req, res) => {
@@ -41,7 +41,7 @@ exports.logUsers = async (req, res) => {
 
 exports.getSignUp = async (req, res) => {
   console.log(`getSignUp controller function called`);
-  res.render("./views/pages/signUp");
+  res.render("./views/pages/signUp", { title: "Sign Up" });
 };
 
 exports.postSignUp = async (req, res) => {
@@ -55,14 +55,13 @@ exports.postSignUp = async (req, res) => {
     },
   });
 
-// 1. Need password encryption
-// 2. Need error handling if passwords don't match
+  // 1. Need password encryption
+  // 2. Need error handling if passwords don't match
 
   res.redirect("/");
 };
 
-
 exports.getLogIn = async (req, res) => {
   console.log(`getLogIn controller function called`);
-  res.render("./views/pages/logIn");
-}
+  res.render("./views/pages/logIn", { title: "Log In" });
+};

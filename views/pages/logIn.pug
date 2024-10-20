@@ -1,14 +1,18 @@
-h1 Log In Existing User
-form(action="/" method="get")
-    button(type="submit") Home
-
-form(action="/logIn" method="post")
-    .formComponent 
-        label(for="username") Username: 
-        input(type="text" name="username")
-    .formComponent 
-        label(for="password") Password: 
-        input(type="text" name="password")
-    .formComponent 
-        button(type="submit") Submit
-        
+html 
+    head 
+        title=title 
+        link(rel="stylesheet", href="/style.css")
+    body 
+        h1=title
+        form(action="/" method="get")
+            button(type="submit") Home
+        form(class="credentials" action="/logIn" method="post")
+            .formComponent 
+                label(for="username") Username: 
+                input(type="text" name="username")
+            .formComponent 
+                label(for="password") Password: 
+                input(type="text" name="password")
+            .formComponent 
+                button(type="submit") Submit
+                
