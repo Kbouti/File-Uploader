@@ -1,15 +1,15 @@
 const { Router } = require("express");
 const indexRouter = Router();
 const indexController = require("../controllers/indexController");
-
+const userController = require("../controllers/userController");
 
 indexRouter.get("/", indexController.getIndex);
 
-indexRouter.get("/signUp", indexController.getSignUp)
+indexRouter.get("/signUp", userController.getSignUp)
 
-indexRouter.post("/signUp", indexController.postSignUp)
+indexRouter.post("/signUp", userController.postSignUp)
 
-indexRouter.get("/logIn", indexController.getLogIn)
+indexRouter.get("/logIn", userController.getLogIn)
 
 
 

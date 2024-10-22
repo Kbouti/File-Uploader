@@ -1,39 +1,39 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  
-  body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(208, 209, 210);
-  }
+  box-sizing: border-box;
+}
 
-  .credentials {
-   background-color: white;
-   display: flex;
-   flex-direction: column;
-   border-radius: 10px;
-   border: 2px solid black;
-   padding: 2rem; 
-  }
+a {
+  text-decoration: none;
+}
 
-  .formComponent {
-    display: flex;
-    flex-direction: column;
-    margin: .5rem;
-  }
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(208, 209, 210);
+}
 
-  .submitButton {
-    align-self: center;
-    font-size: large;
-    padding: .3rem;
-  }
+.credentials {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 2rem;
+}
+
+.formComponent {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+}
+
+.submitButton {
+  align-self: center;
+  font-size: large;
+  padding: 0.3rem;
+}
