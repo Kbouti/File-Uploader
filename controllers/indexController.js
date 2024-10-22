@@ -29,16 +29,6 @@ exports.getIndex = async (req, res) => {
   res.render("./views/pages/home", { title: "File Uploader" });
 };
 
-exports.logUsers = async (req, res) => {
-  console.log(`logUsers controller function called`);
-
-  const users = await prisma.user.findMany();
-  console.log(`users: `);
-  console.log(users);
-
-  res.redirect("/");
-};
-
 exports.getSignUp = async (req, res) => {
   console.log(`getSignUp controller function called`);
   res.render("./views/pages/signUp", { title: "Sign Up" });

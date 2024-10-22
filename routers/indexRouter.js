@@ -5,8 +5,6 @@ const indexController = require("../controllers/indexController");
 
 indexRouter.get("/", indexController.getIndex);
 
-indexRouter.get("/logUsers", indexController.logUsers)
-
 indexRouter.get("/signUp", indexController.getSignUp)
 
 indexRouter.post("/signUp", indexController.postSignUp)
