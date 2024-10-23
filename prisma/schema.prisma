@@ -13,6 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   // @db.MediumText // MediumText may be needed for MySql
+  expiresAt DateTime
+}
+
 model User {
   id       String   @id @default(cuid())
   username String   @unique
@@ -31,15 +38,17 @@ model Folder {
   ownerId   String
   File      File[]
   base      Boolean  @default(false)
+
+  // folderId       String?
+  // childrenFolder Folder[]
+  // Folder         Folder?  @relation(fields: [folderId], references: [id])
 }
 
 // We'll want folder name to be unique to each user... Meaning no user can have two folders with the same name. 
-
+// Also the base folder is the only one without a parent folder. All other folders should have exactly one parent
+// Or another way of saying this is that each folder can have 0-n children...
 // ************************************************************************************************************************************************
 // base:
-// Should creating a user automatically create a folder? This would be the parent folder for that user, and all other folders they make would exist inside. 
-// This wouldn't be done automatically in prisma, we would manually create a folder when we create a user. All other folders owned by this user would reside in this default folder. 
-// The base attribute will determine whether a folder is the base for a user. 
 // Base folders cannot be deleted by the user, only if the user themself is deleted. 
 
 model File {
