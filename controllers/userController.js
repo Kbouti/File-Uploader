@@ -24,6 +24,8 @@ exports.postSignUp = async (req, res) => {
   prismaOperation()
     .catch((e) => {
       console.error(e.message);
+      console.log(`caught error`);
+    //   Need to handle this error. This is getting triggered if we try to violate the unique constraint on username. This is a good thing. But the question is..... How do we report that back to the user
     })
     .finally(async () => {
       await prisma.$disconnect();
