@@ -48,3 +48,15 @@ exports.getLogIn = async (req, res) => {
   console.log(`getLogIn controller function called`);
   res.render("./views/pages/logIn", { title: "Log In" });
 };
+
+
+exports.postLogin = async (req, res) => {
+    console.log(`postLogin controller function called`);
+    
+// Authentication goes here
+
+
+    res.redirect("/");
+    // res.render("./views/pages/home", {title: "Attempted login"});
+
+}
