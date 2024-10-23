@@ -35,7 +35,6 @@ model Folder {
 
 // We'll want folder name to be unique to each user... Meaning no user can have two folders with the same name. 
 
-
 // ************************************************************************************************************************************************
 // base:
 // Should creating a user automatically create a folder? This would be the parent folder for that user, and all other folders they make would exist inside. 
