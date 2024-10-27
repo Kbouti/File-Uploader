@@ -61,7 +61,7 @@ authRouter.post("/logOut", function (req, res, next) {
   });
 });
 
-authRouter.post("/signUp", function (req, res, next) {
+authRouter.post("/signUp", async (req, res, next) => {
   console.log(`postSignUp controller function called`);
 
   const prismaOperation = async () => {
@@ -93,6 +93,8 @@ authRouter.post("/signUp", function (req, res, next) {
   // 1. Need password encryption
   // 2. Need error handling if passwords don't match.
   // 3. Need to log the new user in
+
+// req.redirect("logIn", {username: req.username, password: req.password})
 
   res.redirect("/");
 });
