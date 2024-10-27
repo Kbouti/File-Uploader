@@ -4,10 +4,13 @@ html
         link(rel="stylesheet", href="/style.css")
     body 
         h1=title
-        form(action="/signUp" method="get")
-            button(type="submit") New User
-        form(action="/logIn" method="get")
-            button(type="submit") Log In
         if user
+            form(action="/logOut" method="get")
+                button(type="submit") Log Out
             div Welcome back #{user.username}
+        else    
+            form(action="/signUp" method="get")
+                button(type="submit") New User
+            form(action="/logIn" method="get")
+                button(type="submit") Log In
 
