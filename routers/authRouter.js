@@ -52,13 +52,49 @@ authRouter.post(
 );
 
 authRouter.post("/logOut", function (req, res, next) {
-    console.log('logout called')
+  console.log("logout called");
   req.logout(function (err) {
     if (err) {
       return next(err);
     }
     res.redirect("/");
   });
+});
+
+authRouter.post("/signUp", function (req, res, next) {
+  console.log(`postSignUp controller function called`);
+
+  const prismaOperation = async () => {
+    const newUser = await prisma.user.create({
+      data: {
+        username: req.body.username,
+        password: req.body.password,
+        is_admin: false,
+        Folders: {
+          create: {
+            name: req.body.username + "_main",
+            base: true,
+          },
+        },
+      },
+    });
+  };
+
+  prismaOperation()
+    .catch((e) => {
+      console.error(e.message);
+      console.log(`caught error`);
+      //   Need to handle this error. This is getting triggered if we try to violate the unique constraint on username. This is a good thing. But the question is..... How do we report that back to the user
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+
+  // 1. Need password encryption
+  // 2. Need error handling if passwords don't match.
+  // 3. Need to log the new user in
+
+  res.redirect("/");
 });
 
 module.exports = authRouter;
