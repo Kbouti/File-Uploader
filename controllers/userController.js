@@ -1,3 +1,8 @@
+
+const passport = require("passport")
+const LocalStrategy = require("passport-local").Strategy;
+
+
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -50,13 +55,30 @@ exports.getLogIn = async (req, res) => {
 };
 
 
-exports.postLogin = async (req, res) => {
+
+
+
+  
+
+exports.postLogin = async (req, res, next) => {
     console.log(`postLogin controller function called`);
-    
-// Authentication goes here
+
+    // passport.authenticate('local', {failureRedirect: "/", title: "loginFailure"},
+    //     function(req, res) {
+    //         res.redirect("/", {title: "loginSuccess"})
+    //     }
+    // )
 
 
-    res.redirect("/");
+    // const middleware = passport.authenticate("local", {
+    //     successRedirect: "/",
+    //     failureRedirect: "/",
+    //   });
+    //   await middleware(req, res);
+    //   next;
+
+
+    // res.redirect("/");
     // res.render("./views/pages/home", {title: "Attempted login"});
 
 }
