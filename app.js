@@ -1,11 +1,12 @@
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+// const LocalStrategy = require("passport-local").Strategy;
 // const bcrypt = require("bcryptjs");
 // require("dotenv").config();
 
 const indexRouter = require("./routers/indexRouter");
+const authRouter = require("./routers/authRouter")
 
 const app = express();
 
@@ -44,24 +45,7 @@ app.use(
 
 
 
-passport.use(
-    new LocalStrategy(async (username, password, done) => {
-      try {
-        const { rows } = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-        const user = rows[0];
-  
-        if (!user) {
-          return done(null, false, { message: "Incorrect username" });
-        }
-        if (user.password !== password) {
-          return done(null, false, { message: "Incorrect password" });
-        }
-        return done(null, user);
-      } catch(err) {
-        return done(err);
-      }
-    })
-  );
+
 
 // ******************************************************************************************
 
@@ -73,3 +57,4 @@ passport.use(
 app.listen(3000, () => console.log("app listening on port 3000!"));
 
 app.use("/", indexRouter);
+app.use('/', authRouter);

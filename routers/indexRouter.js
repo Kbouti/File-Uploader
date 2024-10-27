@@ -17,7 +17,7 @@ indexRouter.get('/', function(req, res, next) {
 // Now we're getting our index route here, but we ar egoing to try to move authorization routes to routers/authRouter file
 
 
-
+// Some Success!! We have successfully logged in a user in the authRouter. Can't logout. But logged in! 
 
 
 
@@ -28,7 +28,7 @@ indexRouter.post("/signUp", userController.postSignUp)
 
 indexRouter.get("/logIn", userController.getLogIn)
 
-indexRouter.post("/logIn", userController.postLogin)
+// indexRouter.post("/logIn", userController.postLogin)
 
 
 module.exports = indexRouter;
