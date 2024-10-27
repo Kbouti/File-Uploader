@@ -8,4 +8,6 @@ html
             button(type="submit") New User
         form(action="/logIn" method="get")
             button(type="submit") Log In
+        if user
+            div Welcome back #{user.username}
 
