@@ -51,8 +51,14 @@ authRouter.post(
   })
 );
 
-
-// Need logout route
-
+authRouter.post("/logOut", function (req, res, next) {
+    console.log('logout called')
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
 
 module.exports = authRouter;

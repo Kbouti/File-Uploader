@@ -5,7 +5,7 @@ html
     body 
         h1=title
         if user
-            form(action="/logOut" method="get")
+            form(action="/logOut" method="post")
                 button(type="submit") Log Out
             div Welcome back #{user.username}
         else    
