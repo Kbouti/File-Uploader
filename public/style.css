@@ -25,6 +25,8 @@ body {
   border-radius: 10px;
   border: 2px solid black;
   padding: 2rem;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .loginModal {
@@ -36,6 +38,8 @@ body {
   justify-content: center;
   padding: 2rem;
   align-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .loginModal button {
