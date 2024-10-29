@@ -8,9 +8,6 @@ html
             form(action="/logOut" method="post")
                 button(type="submit") Log Out
             div Welcome back #{user.username}
-        else    
-            form(action="/signUp" method="get")
-                button(type="submit") New User
-            form(action="/logIn" method="get")
-                button(type="submit") Log In
+        else
+            include ../components/loginModal
 

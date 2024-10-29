@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 a {
@@ -25,6 +26,30 @@ body {
   border: 2px solid black;
   padding: 2rem;
 }
+
+.loginModal {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 2px solid black;
+  justify-content: center;
+  padding: 2rem;
+  align-content: center;
+}
+
+.loginModal button {
+  width: 100%;
+}
+
+.loginModal form {
+  width: 100%;
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 .formComponent {
   display: flex;
