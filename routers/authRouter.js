@@ -104,3 +104,9 @@ module.exports = authRouter;
 
 // using video playlist from Odin to better understand cookies and session. On video 3:
 // https://www.youtube.com/watch?v=J1qXK66k1y4&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=3
+
+// documentation on express session stores: talking about session stores @ 8.5 minutes
+// https://www.npmjs.com/package/express-session
+
+// Session store we'll be using for our prisma database connection:
+// https://www.npmjs.com/package/@quixo3/prisma-session-store
