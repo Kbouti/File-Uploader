@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 // require("dotenv").config();
 
 const indexRouter = require("./routers/indexRouter");
-const authRouter = require("./routers/authRouter")
+const authRouter = require("./routers/authRouter");
 
 const app = express();
 
@@ -15,7 +15,18 @@ app.set("views", __dirname);
 app.set("view engine", "pug");
 
 const secret = process.env.SECRET;
-app.use(session({ secret, resave: false, saveUninitialized: false }));
+app.use(
+  session({
+    secret,
+    resave: false,
+    saveUninitialized: false,
+    // My attempt to add a cookie:
+    cookie: {
+      value: "This is the cookie I set. It lasts one day. ",
+      maxAge: 1000 * 60 * 60 * 24, //miliseconds/second times seconds/minute times minutes/hour times hours/day
+    },
+  })
+);
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
@@ -42,11 +53,6 @@ app.use(
   })
 );
 
-
-
-
-
-
 // ******************************************************************************************
 
 // const { PrismaClient } = require('@prisma/client')
@@ -57,4 +63,4 @@ app.use(
 app.listen(3000, () => console.log("app listening on port 3000!"));
 
 app.use("/", indexRouter);
-app.use('/', authRouter);
+app.use("/", authRouter);

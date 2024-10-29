@@ -91,7 +91,7 @@ authRouter.post("/signUp", async (req, res, next) => {
     });
 
   // 1. Need password encryption
-  // 2. Need error handling if passwords don't match.
+  // 2. Need error handling if passwords don't match/username is already taken
   // 3. Need to log the new user in
 
 // req.redirect("logIn", {username: req.username, password: req.password})
@@ -100,3 +100,7 @@ authRouter.post("/signUp", async (req, res, next) => {
 });
 
 module.exports = authRouter;
+
+
+// using video playlist from Odin to better understand cookies and session. On video 3:
+// https://www.youtube.com/watch?v=J1qXK66k1y4&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=3
