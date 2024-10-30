@@ -18,8 +18,7 @@ passport.deserializeUser(function (user, done) {
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-    console.log(`localStragegy triggered`);
-
+    console.log(`localStrategy triggered`);
     try {
       // Find user with prisma query
       const user = await prisma.user.findUnique({
