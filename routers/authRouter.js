@@ -11,7 +11,6 @@ const prisma = new PrismaClient();
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
-
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
@@ -77,6 +76,24 @@ authRouter.post("/signUp", async (req, res, next) => {
         },
       },
     });
+    console.log(`newUser: ${JSON.stringify(newUser)}`);
+    // So newUser here is indeed the user object we're trying to login
+
+    // This login function is called but it does not do what we want.
+    // We get the error: Cannot set headers after the request has already been sent
+    req.login(newUser, function (err) {
+      console.log("Trying to login new user");
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
+    });
+
+    // This also does not work to log the user in:
+    // passport.authenticate("local", {
+    //   successRedirect: "/",
+    //   failureRedirect: "/logIn",
+    // })
   };
 
   prismaOperation()
@@ -89,17 +106,14 @@ authRouter.post("/signUp", async (req, res, next) => {
       await prisma.$disconnect();
     });
 
-  // 1. Need password encryption
-  // 2. Need error handling if passwords don't match/username is already taken
-  // 3. Need to log the new user in
-
-// req.redirect("logIn", {username: req.username, password: req.password})
-
   res.redirect("/");
 });
 
 module.exports = authRouter;
 
+// 1. Need password encryption
+// 2. Need error handling if passwords don't match/username is already taken
+// 3. Need to log the new user in
 
 // using video playlist from Odin to better understand cookies and session. On video 3:
 // https://www.youtube.com/watch?v=J1qXK66k1y4&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=3
