@@ -8,6 +8,12 @@ const bcrypt = require("bcryptjs");
 const indexRouter = require("./routers/indexRouter");
 const authRouter = require("./routers/authRouter");
 
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const { PrismaClient } = require("@prisma/client");
+
+// I kinda don't think we need the below line here, since we're not accessing prisma anywhere. Just prisma-session-store
+// const prisma = new PrismaClient()
+
 const app = express();
 
 app.use(express.static("public"));
@@ -19,32 +25,12 @@ app.use(
   session({
     secret,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     // My attempt to add a cookie:
     cookie: {
       value: "This is the cookie I set. It lasts one day. ",
       maxAge: 1000 * 60 * 60 * 24, //miliseconds/second times seconds/minute times minutes/hour times hours/day
     },
-  })
-);
-app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
-
-// ******************************************************************************************
-// From prisma session store setup:
-
-const expressSession = require("express-session");
-const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
-const { PrismaClient } = require("@prisma/client");
-
-app.use(
-  expressSession({
-    cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // ms
-    },
-    secret: "a santa at nasa",
-    resave: true,
-    saveUninitialized: true,
     store: new PrismaSessionStore(new PrismaClient(), {
       checkPeriod: 2 * 60 * 1000, //ms
       dbRecordIdIsSessionId: true,
@@ -52,13 +38,8 @@ app.use(
     }),
   })
 );
-
-// ******************************************************************************************
-
-// const { PrismaClient } = require('@prisma/client')
-
-// const prisma = new PrismaClient()
-// // use `prisma` in your application to read and write data in your DB
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
 app.listen(3000, () => console.log("app listening on port 3000!"));
 
