@@ -11,6 +11,9 @@ const prisma = new PrismaClient();
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
+// I suspect I need to add some logic to my deserialize user function below, re-reading the authentication lesson and passport documentation:
+// https://www.theodinproject.com/lessons/node-path-nodejs-authentication-basics
+// http://www.passportjs.org/concepts/authentication/
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
