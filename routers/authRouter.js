@@ -5,13 +5,18 @@ const LocalStrategy = require("passport-local").Strategy;
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
-// I suspect I need to add some logic to my deserialize user function below, re-reading the authentication lesson and passport documentation:
+// Serialize and deserialize seems to be working, but if it stops working revert back to commit 1f1779e0381cc9d2b156640eb07ac7c9469c88ba , before I made changes to these functions
 // https://www.theodinproject.com/lessons/node-path-nodejs-authentication-basics
 // http://www.passportjs.org/concepts/authentication/
-passport.deserializeUser(function (user, done) {
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+passport.deserializeUser(async function (id, done) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: id
+    },
+  });
   done(null, user);
 });
 
