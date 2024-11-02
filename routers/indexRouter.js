@@ -35,10 +35,4 @@ indexRouter.get("/logIn", function (req, res, next) {
   res.render("./views/pages/logIn", { title: "Log In" });
 });
 
-indexRouter.get("/newFile", function (req, res) {
-  console.log("newFile page reached");
-  fileController.getFolders(req.user);
-  res.render("./views/pages/newFile", { title: "Upload New File" });
-});
-
 module.exports = indexRouter;
