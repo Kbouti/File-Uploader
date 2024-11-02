@@ -4,6 +4,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const bcrypt = require("bcryptjs");
 
 // Serialize and deserialize seems to be working, but if it stops working revert back to commit 1f1779e0381cc9d2b156640eb07ac7c9469c88ba , before I made changes to these functions
 // https://www.theodinproject.com/lessons/node-path-nodejs-authentication-basics
@@ -14,7 +15,7 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(async function (id, done) {
   const user = await prisma.user.findUnique({
     where: {
-      id: id
+      id: id,
     },
   });
   done(null, user);
@@ -35,7 +36,8 @@ passport.use(
         return done(null, false, { message: "Incorrect username" });
         // I'd really like to know how to render the above message^^^ It's stored in the session, yes??
       }
-      if (user.password !== password) {
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
         console.log(`User found with username: ${username}`);
         return done(null, false, { message: "Incorrect password" });
       }
@@ -66,28 +68,35 @@ authRouter.post("/logOut", function (req, res, next) {
 
 authRouter.post("/signUp", async (req, res, next) => {
   console.log(`signUp function called`);
-  const newUser = await prisma.user.create({
-    data: {
-      username: req.body.username,
-      password: req.body.password,
-      is_admin: false,
-      Folders: {
-        create: {
-          name: req.body.username + "_main",
-          base: true,
-        },
-      },
-    },
-  });
-  req.login(newUser, function (err) {
-    console.log("Logging in new user");
-    console.log(`req.user: ${JSON.stringify(req.user)}`);
+  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
     if (err) {
-      console.log(`failed to log in new user`);
+      console.log(`error hashing password.`);
       console.error(err);
-      return next(err);
+    } else {
+      const newUser = await prisma.user.create({
+        data: {
+          username: req.body.username,
+          password: hashedPassword,
+          is_admin: false,
+          Folders: {
+            create: {
+              name: req.body.username + "_main",
+              base: true,
+            },
+          },
+        },
+      });
+      req.login(newUser, function (err) {
+        console.log("Logging in new user");
+        console.log(`req.user: ${JSON.stringify(req.user)}`);
+        if (err) {
+          console.log(`failed to log in new user`);
+          console.error(err);
+          return next(err);
+        }
+        res.redirect("/");
+      });
     }
-    res.redirect("/");
   });
 });
 
