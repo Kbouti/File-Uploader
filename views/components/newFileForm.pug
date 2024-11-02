@@ -1,2 +1,4 @@
-form(action="/newForm" method="post" class="fileForm")
-    h2 This is the new file form
+form(action="/newFile" method="post" class="fileForm" enctype="multipart/form-data")
+    h2 Upload your file here:
+    input(type="file" name="newFile")
+    button(type="submit") Submit

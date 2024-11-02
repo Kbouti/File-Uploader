@@ -13,12 +13,14 @@ exports.getFolders = async (user) => {
 };
 
 exports.createFolder = async (req, res, next) => {
-    console.log(`Create folder controller function called`);
-    console.log(`req.body.folderName: ${req.body.folderName}`);
+  console.log(`Create folder controller function called`);
+  console.log(`req.body.folderName: ${req.body.folderName}`);
 
-    // Next we'll want to create a new folder in our database. BUUUUUT we should make sure we don't name it the same as our base folder to avoid confusion. 
+  // Next we'll want to create a new folder in our database. BUUUUUT we should make sure we don't name it the same as our base folder to avoid confusion.
+
+  next();
+};
 
 
-    next()
-}
-
+// We should be able to rename the files that are uploaded as well as direct them to the database we want to
+// https://www.youtube.com/watch?v=i8yxx6V9UdM

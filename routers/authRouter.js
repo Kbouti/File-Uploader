@@ -102,8 +102,7 @@ authRouter.post("/signUp", async (req, res, next) => {
 
 module.exports = authRouter;
 
-// 1. Need password encryption
-// 2. Need error handling if passwords don't match/username is already taken
+// 1. Need error handling if passwords don't match/username is already taken
 
 // using video playlist from Odin to better understand cookies and session. On video 3:
 // https://www.youtube.com/watch?v=J1qXK66k1y4&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=3
