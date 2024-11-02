@@ -13,6 +13,8 @@ fileRouter.get("/newFolder", function (req, res) {
     res.render("./views/pages/newFolder", { title: "New Folder" });
   });
 
-
+fileRouter.post("/newFolder", fileController.createFolder, async (req, res) => {
+    res.redirect("/");
+})
 
 module.exports = fileRouter;
