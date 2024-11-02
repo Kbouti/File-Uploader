@@ -5,8 +5,8 @@ const indexRouter = Router();
 indexRouter.get(
   "/",
   function (req, res, next) {
-    console.log(`get HOME route reached, NO user detected`);
     if (!req.user) {
+      console.log(`get HOME route reached, NO user detected`);
       return res.render("./views/pages/home", { title: "File Uploader" });
     }
     next();

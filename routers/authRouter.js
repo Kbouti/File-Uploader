@@ -61,7 +61,6 @@ authRouter.post("/logOut", function (req, res, next) {
 
 authRouter.post("/signUp", async (req, res, next) => {
   console.log(`signUp function called`);
-
   const newUser = await prisma.user.create({
     data: {
       username: req.body.username,
@@ -75,32 +74,22 @@ authRouter.post("/signUp", async (req, res, next) => {
       },
     },
   });
-  console.log(`newUser created: ${JSON.stringify(newUser)}`);
-  // So newUser here is indeed the user object we're trying to login
-
-  req.user = newUser;
-
-  // This login function is called but it does not do what we want.
-  // We get the error: Cannot set headers after the request has already been sent
-  // ...No longer getting that error message
-  req.login(req.user, function (err) {
-    console.log("Trying to login new user");
+  req.login(newUser, function (err) {
+    console.log("Logging in new user");
     console.log(`req.user: ${JSON.stringify(req.user)}`);
-
     if (err) {
+      console.log(`failed to log in new user`);
       console.error(err);
       return next(err);
     }
+    res.redirect("/");
   });
-
-  res.render("views/pages/home", { user: req.user });
 });
 
 module.exports = authRouter;
 
 // 1. Need password encryption
 // 2. Need error handling if passwords don't match/username is already taken
-// 3. Need to log the new user in
 
 // using video playlist from Odin to better understand cookies and session. On video 3:
 // https://www.youtube.com/watch?v=J1qXK66k1y4&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=3
@@ -110,3 +99,6 @@ module.exports = authRouter;
 
 // Session store we'll be using for our prisma database connection:
 // https://www.npmjs.com/package/@quixo3/prisma-session-store
+
+// Good referesher on middleware:
+// https://www.youtube.com/watch?v=lY6icfhap2o
