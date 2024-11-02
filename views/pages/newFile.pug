@@ -6,4 +6,6 @@ html
         h1=title
         form(action="/logOut" method="post")
             button(type="submit") Log Out
+        form(action="/" method="get")
+            button(type="submit") Cancel
         include ../components/newFileForm

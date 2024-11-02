@@ -66,3 +66,12 @@ body {
   font-size: large;
   padding: 0.3rem;
 }
+
+.fileForm {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 2rem;
+}
