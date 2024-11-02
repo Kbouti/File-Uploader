@@ -61,49 +61,39 @@ authRouter.post("/logOut", function (req, res, next) {
 
 authRouter.post("/signUp", async (req, res, next) => {
   console.log(`signUp function called`);
-  const prismaOperation = async () => {
-    const newUser = await prisma.user.create({
-      data: {
-        username: req.body.username,
-        password: req.body.password,
-        is_admin: false,
-        Folders: {
-          create: {
-            name: req.body.username + "_main",
-            base: true,
-          },
+
+  const newUser = await prisma.user.create({
+    data: {
+      username: req.body.username,
+      password: req.body.password,
+      is_admin: false,
+      Folders: {
+        create: {
+          name: req.body.username + "_main",
+          base: true,
         },
       },
-    });
-    console.log(`newUser created: ${JSON.stringify(newUser)}`);
-    // So newUser here is indeed the user object we're trying to login
-    return newUser;
-  };
+    },
+  });
+  console.log(`newUser created: ${JSON.stringify(newUser)}`);
+  // So newUser here is indeed the user object we're trying to login
 
-  const newUser = await prismaOperation()
-    .catch((e) => {
-      console.error(e.message);
-      console.log(`caught error`);
-      //   Need to handle this error. This is getting triggered if we try to violate the unique constraint on username. This is a good thing. But the question is..... How do we report that back to the user
-    })
-    .finally(async () => {
-      await prisma.$disconnect();
-    });
-
-    req.user = newUser;
+  req.user = newUser;
 
   // This login function is called but it does not do what we want.
   // We get the error: Cannot set headers after the request has already been sent
-  req.login(newUser, function (err) {
+  // ...No longer getting that error message
+  req.login(req.user, function (err) {
     console.log("Trying to login new user");
+    console.log(`req.user: ${JSON.stringify(req.user)}`);
+
     if (err) {
+      console.error(err);
       return next(err);
     }
-    // res.redirect("/");
-    // return
   });
 
-  res.redirect("/");
+  res.render("views/pages/home", { user: req.user });
 });
 
 module.exports = authRouter;
