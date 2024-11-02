@@ -8,6 +8,8 @@ html
             form(action="/logOut" method="post")
                 button(type="submit") Log Out
             div Welcome back #{user.username}
+            form(action="/newFile" method="get")
+                button(type="submit") Upload New File
         else
             include ../components/loginModal
 
