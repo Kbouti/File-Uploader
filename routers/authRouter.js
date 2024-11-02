@@ -1,11 +1,8 @@
 const { Router } = require("express");
 const authRouter = Router();
-
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-
 const { PrismaClient } = require("@prisma/client");
-
 const prisma = new PrismaClient();
 
 passport.serializeUser(function (user, done) {
@@ -63,8 +60,7 @@ authRouter.post("/logOut", function (req, res, next) {
 });
 
 authRouter.post("/signUp", async (req, res, next) => {
-  console.log(`postSignUp controller function called`);
-
+  console.log(`signUp function called`);
   const prismaOperation = async () => {
     const newUser = await prisma.user.create({
       data: {
@@ -79,27 +75,12 @@ authRouter.post("/signUp", async (req, res, next) => {
         },
       },
     });
-    console.log(`newUser: ${JSON.stringify(newUser)}`);
+    console.log(`newUser created: ${JSON.stringify(newUser)}`);
     // So newUser here is indeed the user object we're trying to login
-
-    // This login function is called but it does not do what we want.
-    // We get the error: Cannot set headers after the request has already been sent
-    req.login(newUser, function (err) {
-      console.log("Trying to login new user");
-      if (err) {
-        return next(err);
-      }
-      res.redirect("/");
-    });
-
-    // This also does not work to log the user in:
-    // passport.authenticate("local", {
-    //   successRedirect: "/",
-    //   failureRedirect: "/logIn",
-    // })
+    return newUser;
   };
 
-  prismaOperation()
+  const newUser = await prismaOperation()
     .catch((e) => {
       console.error(e.message);
       console.log(`caught error`);
@@ -108,6 +89,19 @@ authRouter.post("/signUp", async (req, res, next) => {
     .finally(async () => {
       await prisma.$disconnect();
     });
+
+    req.user = newUser;
+
+  // This login function is called but it does not do what we want.
+  // We get the error: Cannot set headers after the request has already been sent
+  req.login(newUser, function (err) {
+    console.log("Trying to login new user");
+    if (err) {
+      return next(err);
+    }
+    // res.redirect("/");
+    // return
+  });
 
   res.redirect("/");
 });
