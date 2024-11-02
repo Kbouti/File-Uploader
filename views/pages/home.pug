@@ -10,6 +10,9 @@ html
             div Welcome back #{user.username}
             form(action="/newFile" method="get")
                 button(type="submit") Upload New File
+            form(action="/newFolder" method="get")
+                button(type="submit") Create Folder
+
         else
             include ../components/loginModal
 

@@ -8,4 +8,11 @@ fileRouter.get("/newFile", function (req, res) {
   res.render("./views/pages/newFile", { title: "Upload New File" });
 });
 
+fileRouter.get("/newFolder", function (req, res) {
+    console.log("newFolder page reached");
+    res.render("./views/pages/newFolder", { title: "New Folder" });
+  });
+
+
+
 module.exports = fileRouter;
