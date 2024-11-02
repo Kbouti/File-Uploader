@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const indexRouter = Router();
 
+const fileController = require("../controllers/fileController");
+
 /* GET home page. */
 indexRouter.get(
   "/",
@@ -25,7 +27,6 @@ indexRouter.get(
 indexRouter.get("/signUp", function (req, res, next) {
   console.log(`getSignUp route reached`);
   res.render("./views/pages/signUp", { title: "Sign Up" });
-
 });
 
 /* GET logIn page. */
@@ -35,11 +36,9 @@ indexRouter.get("/logIn", function (req, res, next) {
 });
 
 indexRouter.get("/newFile", function (req, res) {
-  console.log('newFile page reached');
-  res.render("./views/pages/newFile", {title: "Upload New File"});
-})
-
-
-
+  console.log("newFile page reached");
+  fileController.getFolders(req.user);
+  res.render("./views/pages/newFile", { title: "Upload New File" });
+});
 
 module.exports = indexRouter;
