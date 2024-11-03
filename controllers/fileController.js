@@ -16,7 +16,12 @@ exports.createFolder = async (req, res, next) => {
   console.log(`Create folder controller function called`);
   console.log(`req.body.folderName: ${req.body.folderName}`);
 
-  // Next we'll want to create a new folder in our database. BUUUUUT we should make sure we don't name it the same as our base folder to avoid confusion.
+  if (req.body.folderName === "MAIN" || req.body.folderName === req.user.username + "_main") {
+    res.render("./views/pages/home", {title: "Failure", message: "Cannot create folder. This name is reserved for your main folder."
+    })
+    return;
+  }
+  // Next we'll want to create a new folder in our database. 
 
   next();
 };
