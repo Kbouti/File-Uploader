@@ -85,3 +85,29 @@ body {
   justify-content: center;
   text-align: center;
 }
+
+
+.displayModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.folders {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 1rem;
+  max-width: 80%;
+  flex-wrap: wrap;
+}
+
+.folders li {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 10px;
+  background-color: rgb(152, 213, 251);
+}

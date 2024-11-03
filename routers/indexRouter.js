@@ -6,19 +6,22 @@ const fileController = require("../controllers/fileController");
 /* GET home page. */
 indexRouter.get(
   "/",
-  function (req, res, next) {
+  (req, res, next) => {
     if (!req.user) {
       console.log(`get HOME route reached, NO user detected`);
       return res.render("./views/pages/home", { title: "File Uploader" });
     }
     next();
   },
-  function (req, res, next) {
+  async (req, res, next) => {
     console.log(`get HOME route reached, user IS detected`);
-    res.locals.filter = null;
+    // Commented out below line because I'm not sure what it does and it seems to work fine without it?
+    // res.locals.filter = null;
+    const folders = await fileController.getFolders(req.user);
     res.render("./views/pages/home", {
       title: "File Uploader",
       user: req.user,
+      folders,
     });
   }
 );
@@ -32,7 +35,7 @@ indexRouter.get("/signUp", function (req, res, next) {
 /* GET logIn page. */
 indexRouter.get("/logIn", function (req, res, next) {
   console.log(`getLogIn route reached`);
-  res.render("./views/pages/logIn", { title: "Log In"});
+  res.render("./views/pages/logIn", { title: "Log In" });
 });
 
 module.exports = indexRouter;
