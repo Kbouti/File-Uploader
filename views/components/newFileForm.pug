@@ -1,4 +1,11 @@
 form(action="/newFile" method="post" class="fileForm" enctype="multipart/form-data")
     h2 Upload your file here:
     input(type="file" name="newFile")
+    label(for="folder") Folder:
+    select(name="folder") 
+        each folder in folders
+            if folder.base
+                 option(value=folder.id) MAIN
+            else
+                option(value=folder.id)=folder.name
     button(type="submit") Submit

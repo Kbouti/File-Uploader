@@ -27,13 +27,13 @@ indexRouter.get(
 );
 
 /* GET signUp page. */
-indexRouter.get("/signUp", function (req, res, next) {
+indexRouter.get("/signUp", (req, res, next) => {
   console.log(`getSignUp route reached`);
   res.render("./views/pages/signUp", { title: "Sign Up" });
 });
 
 /* GET logIn page. */
-indexRouter.get("/logIn", function (req, res, next) {
+indexRouter.get("/logIn", (req, res, next) => {
   console.log(`getLogIn route reached`);
   res.render("./views/pages/logIn", { title: "Log In" });
 });

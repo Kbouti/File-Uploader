@@ -103,6 +103,8 @@ body {
   gap: 1rem;
   max-width: 80%;
   flex-wrap: wrap;
+  margin: none;
+  /* width: 100; */
 }
 
 .folders .defaultFolder {

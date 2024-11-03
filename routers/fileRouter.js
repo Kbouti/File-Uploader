@@ -6,13 +6,13 @@ const fileController = require("../controllers/fileController");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
-fileRouter.get("/newFile", function (req, res) {
+fileRouter.get("/newFile", async (req, res) => {
   console.log("newFile page reached");
-  fileController.getFolders(req.user);
-  res.render("./views/pages/newFile", { title: "Upload New File" });
+  const folders = await fileController.getFolders(req.user);
+  res.render("./views/pages/newFile", { title: "Upload New File", folders });
 });
 
-fileRouter.get("/newFolder", function (req, res) {
+fileRouter.get("/newFolder",  (req, res) => {
   console.log("newFolder page reached");
   res.render("./views/pages/newFolder", { title: "New Folder" });
 });
