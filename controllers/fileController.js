@@ -6,7 +6,9 @@ exports.getFolders = async (user) => {
   const folders = await prisma.folder.findMany({
     where: {
       owner: user,
-    },
+    }, orderBy: {
+        name: "asc"
+    }
   });
   return folders;
 };
