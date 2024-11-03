@@ -4,6 +4,8 @@ html
         link(rel="stylesheet", href="/style.css")
     body 
         h1=title
+        if message 
+            include ../components/notification
         form(action="/" method="get")
             button(type="submit") Home
         form(class="credentials" action="/logIn" method="post")

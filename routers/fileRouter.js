@@ -18,7 +18,7 @@ fileRouter.get("/newFolder", function (req, res) {
 });
 
 fileRouter.post("/newFolder", fileController.createFolder, async (req, res) => {
-  res.redirect("/");
+  res.render("./views/pages/home", {title: "Success!", message: "Created new folder", user: req.user});
 });
 
 fileRouter.post("/newFile", upload.single("newFile"), async (req, res) => {

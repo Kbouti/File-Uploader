@@ -4,15 +4,16 @@ html
         link(rel="stylesheet", href="/style.css")
     body 
         h1=title
-        if user
-            form(action="/logOut" method="post")
-                button(type="submit") Log Out
-            div Welcome back #{user.username}
-            form(action="/newFile" method="get")
-                button(type="submit") Upload New File
-            form(action="/newFolder" method="get")
-                button(type="submit") Create Folder
-
+        if message 
+            include ../components/notification
         else
-            include ../components/loginModal
-
+            if user
+                form(action="/logOut" method="post")
+                    button(type="submit") Log Out
+                div Welcome back #{user.username}
+                form(action="/newFile" method="get")
+                    button(type="submit") Upload New File
+                form(action="/newFolder" method="get")
+                    button(type="submit") Create Folder
+            else
+                include ../components/loginModal

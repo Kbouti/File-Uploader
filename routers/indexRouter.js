@@ -32,7 +32,7 @@ indexRouter.get("/signUp", function (req, res, next) {
 /* GET logIn page. */
 indexRouter.get("/logIn", function (req, res, next) {
   console.log(`getLogIn route reached`);
-  res.render("./views/pages/logIn", { title: "Log In" });
+  res.render("./views/pages/logIn", { title: "Log In"});
 });
 
 module.exports = indexRouter;

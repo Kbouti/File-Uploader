@@ -52,7 +52,7 @@ authRouter.post(
   "/logIn",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/logIn",
+    failureRedirect: "/logIn"
   })
 );
 
