@@ -8,48 +8,52 @@ exports.getFolders = async (user) => {
       owner: user,
     },
   });
-  console.log(`folders: ${JSON.stringify(folders)}`);
   return folders;
 };
 
 exports.createFolder = async (req, res, next) => {
   console.log(`Create folder controller function called`);
-  console.log(`req.body.folderName: ${req.body.folderName}`);
-
   if (
     req.body.folderName === "MAIN" ||
     req.body.folderName === req.user.username + "_main"
   ) {
     res.render("./views/pages/home", {
-      title: "Failure",
+      title: "Prohibited Folder Name",
       message:
-        "Cannot create folder. This name is reserved for your main folder.",
+        "Cannot create folder. This name is reserved for your default folder.",
     });
     return;
   }
-  // Next we'll want to create a new folder in our database. Neither of these attempts worked....
-  // We need to figure out how to create the folder in prisma
-
-  //   await prisma.user.upsert({
-  //     where: {
-  //       id: req.user.id,
-  //     },
-  //     create: {
-  //       Folder: {
-  //         base: false,
-  //         name: req.body.folderName,
-  //       },
-  //     },
-  //   });
-
-  //   await prisma.folder.create({data: {
-  //     owner: req.user,
-  //     base: false,
-  //     name: req.body.folderName
-  //   }})
-
+  const usersFolders = await this.getFolders(req.user);
+  let folderNames = [];
+  usersFolders.forEach((folder) => {
+    folderNames.push(folder.name);
+  });
+  if (folderNames.includes(req.body.folderName)) {
+    res.render("./views/pages/home", {
+      title: "Duplicate Name Failure",
+      message:
+        "Cannot create folder. You already have a folder with this name.",
+    });
+    return;
+  }
+  await prisma.user.update({
+    where: {
+      id: req.user.id,
+    },
+    data: {
+      Folders: {
+        create: {
+          name: req.body.folderName,
+        },
+      },
+    },
+  });
   next();
 };
+
+
+
 
 // We should be able to rename the files that are uploaded as well as direct them to the database we want to
 // https://www.youtube.com/watch?v=i8yxx6V9UdM
