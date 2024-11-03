@@ -105,6 +105,10 @@ body {
   flex-wrap: wrap;
 }
 
+.folders .defaultFolder {
+  background-color: rgb(248, 175, 175);
+}
+
 .folders li {
   height: 4rem;
   width: 4rem;

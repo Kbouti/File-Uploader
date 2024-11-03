@@ -6,9 +6,15 @@ exports.getFolders = async (user) => {
   const folders = await prisma.folder.findMany({
     where: {
       owner: user,
-    }, orderBy: {
-        name: "asc"
-    }
+    },
+    orderBy: [
+      {
+        base: "desc",
+      },
+      {
+        name: "asc",
+      },
+    ],
   });
   return folders;
 };
@@ -53,9 +59,6 @@ exports.createFolder = async (req, res, next) => {
   });
   next();
 };
-
-
-
 
 // We should be able to rename the files that are uploaded as well as direct them to the database we want to
 // https://www.youtube.com/watch?v=i8yxx6V9UdM

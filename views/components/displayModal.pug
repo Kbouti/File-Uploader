@@ -2,4 +2,7 @@ section(class="displayModal")
     h2 Folders:
     ul(class="folders") 
         each folder in folders  
-            li=folder.name
+            if folder.base === true 
+                li(class="defaultFolder") MAIN
+            else 
+                li=folder.name
