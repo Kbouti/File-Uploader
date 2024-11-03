@@ -6,7 +6,7 @@ const fileController = require("../controllers/fileController");
 /* GET home page. */
 indexRouter.get(
   "/",
-  (req, res, next) => {
+  async (req, res, next) => {
     if (!req.user) {
       console.log(`get HOME route reached, NO user detected`);
       return res.render("./views/pages/home", { title: "File Uploader" });

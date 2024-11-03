@@ -1,6 +1,25 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// *****************************************************************************************************************************************************************
+// Delete functions for maintaining dev database
+exports.clearAllData = async() => {
+    console.log(`CLEARING ALL DATA`)
+    await prisma.folder.deleteMany();
+    await prisma.user.deleteMany();
+}
+exports.deleteAllFolders = async (user) => {
+    console.log(`Deleting non-base folders for: ${user.username}`);
+    await prisma.folder.deleteMany({
+        where: {
+            base: false,
+            owner: user
+        }
+    })
+}
+// *****************************************************************************************************************************************************************
+
+
 exports.getFolders = async (user) => {
   console.log(`getFolders called for user: ${user.username}`);
   const folders = await prisma.folder.findMany({
