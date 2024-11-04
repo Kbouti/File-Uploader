@@ -22,6 +22,17 @@ fileRouter.post("/newFolder", fileController.createFolder, async (req, res) => {
 });
 
 fileRouter.post("/newFile", upload.single("newFile"), async (req, res) => {
+
+// Add prisma operation to save file. 
+
+// console.log(`req.body: ${req.body}`);
+console.log(`req.body json: ${JSON.stringify(req.body)}`)
+console.log(`req.file: ${JSON.stringify(req.file)}`);
+// ^^ Excellent! THIS is our file. 
+
+const file = req.file;
+
+
   res.redirect("/");
 });
 
