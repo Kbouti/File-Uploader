@@ -21,19 +21,8 @@ fileRouter.post("/newFolder", fileController.createFolder, async (req, res) => {
   res.render("./views/pages/home", {title: "Success!", message: "Created new folder", user: req.user});
 });
 
-fileRouter.post("/newFile", upload.single("newFile"), async (req, res) => {
-
-// Add prisma operation to save file. 
-
-// console.log(`req.body: ${req.body}`);
-console.log(`req.body json: ${JSON.stringify(req.body)}`)
-console.log(`req.file: ${JSON.stringify(req.file)}`);
-// ^^ Excellent! THIS is our file. 
-
-const file = req.file;
-
-
-  res.redirect("/");
+fileRouter.post("/newFile", upload.single("newFile"), fileController.createFile, async (req, res) => {
+    res.render("./views/pages/home", {title: "Success!", message: "Uploaded new file", user: req.user});
 });
 
 module.exports = fileRouter;
