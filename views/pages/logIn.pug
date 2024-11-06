@@ -1,20 +1,16 @@
-html 
-    head 
-        title=title 
-        link(rel="stylesheet", href="/style.css")
-    body 
-        h1=title
-        if message 
-            include ../components/notification
-        form(action="/" method="get")
-            button(type="submit") Home
-        form(class="credentials" action="/logIn" method="post")
-            .formComponent 
-                label(for="username") Username: 
-                input(type="text" name="username")
-            .formComponent 
-                label(for="password") Password: 
-                input(type="text" name="password")
-            .formComponent 
-                button(type="submit" class="submitButton") Submit
-                
+include ../components/head
+h1=title
+if message 
+    include ../components/notification
+form(action="/" method="get")
+    button(type="submit") Home
+form(class="credentials" action="/logIn" method="post")
+    .formComponent 
+        label(for="username") Username: 
+        input(type="text" name="username")
+    .formComponent 
+        label(for="password") Password: 
+        input(type="text" name="password")
+    .formComponent 
+        button(type="submit" class="submitButton") Submit
+        

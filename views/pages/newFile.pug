@@ -1,11 +1,7 @@
-html 
-    head 
-        title=title 
-        link(rel="stylesheet", href="/style.css")
-    body 
-        h1=title
-        form(action="/logOut" method="post")
-            button(type="submit") Log Out
-        form(action="/" method="get")
-            button(type="submit") Cancel
-        include ../components/newFileForm
+include ../components/head
+h1=title
+form(action="/logOut" method="post")
+    button(type="submit") Log Out
+form(action="/" method="get")
+    button(type="submit") Cancel
+include ../components/newFileForm

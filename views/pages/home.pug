@@ -1,20 +1,16 @@
-html 
-    head 
-        title=title 
-        link(rel="stylesheet", href="/style.css")
-    body 
-        h1=title
-        if message 
-            include ../components/notification
-        else
-            if user
-                form(action="/logOut" method="post")
-                    button(type="submit") Log Out
-                div Welcome back #{user.username}
-                form(action="/newFile" method="get")
-                    button(type="submit") Upload New File
-                form(action="/newFolder" method="get")
-                    button(type="submit") Create Folder
-                include ../components/displayModal
-            else
-                include ../components/loginModal
+include ../components/head
+h1=title
+if message 
+    include ../components/notification
+else
+    if user
+        form(action="/logOut" method="post")
+            button(type="submit") Log Out
+        div Welcome back #{user.username}
+        form(action="/newFile" method="get")
+            button(type="submit") Upload New File
+        form(action="/newFolder" method="get")
+            button(type="submit") Create Folder
+        include ../components/displayModal
+    else
+        include ../components/loginModal
