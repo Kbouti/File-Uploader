@@ -120,8 +120,12 @@ body {
 }
 
 .folders li {
+  display: flex;
+  flex-direction: column;
   height: 4rem;
   width: 4rem;
   border-radius: 10px;
   background-color: rgb(152, 213, 251);
+  justify-content: center;
+  align-items: center;
 }
