@@ -89,7 +89,6 @@ exports.createFile = async (req, res, next) => {
       id: folderId,
     },
   });
-
   console.log(`json.folder: ${JSON.stringify(folder)}`);
 
   const originalName = req.file.originalname;
@@ -101,36 +100,24 @@ exports.createFile = async (req, res, next) => {
   const size = req.file.size;
   console.log(`size: ${size}`);
 
-
-// This create query still doesn't work, but I think I'm getting closer. 
-// I need to "connect" the appropriate folder and user? 
-
-  await prisma.file.create({
+// This Successfully creates a file entry in our database. It's unclear if it's actually storing the file in the database or just the metadata.
+  await prisma.user.update({
+    where: {
+      id: req.user.id,
+    },
     data: {
-      name: originalName,
-      folder: {
-        connect:  {
-            id: folderId
-        }
+      Files: {
+        create: {
+          name: originalName,
+          folder: {
+            connect: {
+              id: folderId,
+            },
+          },
+        },
       },
-      owner: req.user,
     },
   });
-
-  //   await prisma.folder.update({
-  //     where: {
-  //       Folders: {
-  //         id: folderId,
-  //       },
-  //       data: {
-  //         File: {
-  //           create: {
-  //             name: originalName,
-  //           },
-  //         },
-  //       },
-  //     },
-  //   });
 
   next();
 };
