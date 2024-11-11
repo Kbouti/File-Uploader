@@ -2,7 +2,6 @@
 
 ### Must: 
 * Create file entry to database when uploading new file
-* Figure out why material symbols aren't working
 * Accurately reflect user, file, folder relationships
 
 ### Should:
