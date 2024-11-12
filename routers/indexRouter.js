@@ -2,6 +2,7 @@ const { Router } = require("express");
 const indexRouter = Router();
 
 const fileController = require("../controllers/fileController");
+const folderController = require("../controllers/folderController");
 
 /* GET home page. */
 indexRouter.get(
@@ -17,7 +18,7 @@ indexRouter.get(
     console.log(`get HOME route reached, user IS detected`);
     // Commented out below line because I'm not sure what it does and it seems to work fine without it?
     // res.locals.filter = null;
-    const folders = await fileController.getFolders(req.user);
+    const folders = await folderController.getFolders(req.user);
     res.render("./views/pages/home", {
       title: "File Uploader",
       user: req.user,
