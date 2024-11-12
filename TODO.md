@@ -3,6 +3,8 @@
 ### Must: 
 * Create file entry to database when uploading new file
 * Accurately reflect user, file, folder relationships
+* Style display modules
+* (C)RUD folders
 
 ### Should:
 * Notify user why login failed
