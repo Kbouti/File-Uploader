@@ -1,42 +1,15 @@
 const { Router } = require("express");
 const indexRouter = Router();
 
-const fileController = require("../controllers/fileController");
-const folderController = require("../controllers/folderController");
+const indexController = require("../controllers/indexController");
 
 /* GET home page. */
-indexRouter.get(
-  "/",
-  async (req, res, next) => {
-    if (!req.user) {
-      console.log(`get HOME route reached, NO user detected`);
-      return res.render("./views/pages/home", { title: "File Uploader" });
-    }
-    next();
-  },
-  async (req, res, next) => {
-    console.log(`get HOME route reached, user IS detected`);
-    // Commented out below line because I'm not sure what it does and it seems to work fine without it?
-    // res.locals.filter = null;
-    const folders = await folderController.getFolders(req.user);
-    res.render("./views/pages/home", {
-      title: "File Uploader",
-      user: req.user,
-      folders,
-    });
-  }
-);
+indexRouter.get("/", indexController.getHome);
 
 /* GET signUp page. */
-indexRouter.get("/signUp", (req, res, next) => {
-  console.log(`getSignUp route reached`);
-  res.render("./views/pages/signUp", { title: "Sign Up" });
-});
+indexRouter.get("/signUp", indexController.getSignUp);
 
 /* GET logIn page. */
-indexRouter.get("/logIn", (req, res, next) => {
-  console.log(`getLogIn route reached`);
-  res.render("./views/pages/logIn", { title: "Log In" });
-});
+indexRouter.get("/logIn", indexController.getLogin);
 
 module.exports = indexRouter;
