@@ -5,12 +5,27 @@ section(class="displayModal")
             if folder.base === true 
                 li(class="defaultFolder") MAIN
                     .buttonContainer
-                        span(class = "material-symbols-outlined") edit
-                        span(class = "material-symbols-outlined") folder_open
+                        form(action="/editFolder" method="get")
+                            input(type="hidden" name="folderId" value=folder.id)
+                            button(type="submit")
+                                span(class = "material-symbols-outlined") edit
+                        form(action="/openFolder" method="get")
+                            input(type="hidden" name="folderId" value=folder.id)
+                            button(type="submit")
+                                span(class = "material-symbols-outlined") folder_open    
             else 
                 li=folder.name
                     .buttonContainer
-                        span(class = "material-symbols-outlined") edit
-                        span(class = "material-symbols-outlined") folder_open
-                        span(class = "material-symbols-outlined") delete
+                        form(action="/editFolder" method="get")
+                            input(type="hidden" name="folderId" value=folder.id)
+                            button(type="submit")
+                                span(class = "material-symbols-outlined") edit
+                        form(action="/openFolder" method="get")
+                            input(type="hidden" name="folderId" value=folder.id)
+                            button(type="submit")
+                                span(class = "material-symbols-outlined") folder_open    
+                        form(action="/deleteFolder" method="post")
+                            input(type="hidden" name="folderId" value=folder.id)
+                            button(type="submit")
+                                span(class = "material-symbols-outlined") delete
                         
