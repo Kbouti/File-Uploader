@@ -19,23 +19,33 @@ folderRouter.post(
   }
 );
 
-folderRouter.get("/openFolder", (req, res) => {
+folderRouter.get("/openFolder/:folderId", (req, res) => {
   console.log("openFolder get route reached");
-  // res.render("./views/pages/openFolder", { title: "New Folder" });
-
-  console.log(`req.params: ${JSON.stringify(req.params)}`);
-  // This is an empty object, trying to get folder id
-
-  // console.log(`json(req): ${JSON.stringify(req)}`)
-  // This^^ gets error. Below gets [object Object]
-  console.log(`req: ${req}`);
-  res.send("open folder");
+  const folderId = req.params.folderId;
+  console.log(`folderId: ${folderId}`);
+  res.send("open folder with id: " + folderId);
 });
 
-folderRouter.get("/editFolder", (req, res) => {
+folderRouter.get("/editFolder/:folderId", (req, res) => {
   console.log("editFolder get route reached");
-  // res.render("./views/pages/openFolder", { title: "New Folder" });
+  const folderId = req.params.folderId;
+  console.log(`folderId: ${folderId}`);
   res.send("edit folder");
+});
+
+
+folderRouter.post("/editFolder/:folderId", (req, res) => {
+  console.log("editFolder post route reached");
+  const folderId = req.params.folderId;
+  console.log(`folderId: ${folderId}`);
+  res.send("edit folder");
+});
+
+folderRouter.post("/deleteFolder/:folderId", (req, res) => {
+  console.log("deleteFolder post route reached");
+  const folderId = req.params.folderId;
+  console.log(`folderId: ${folderId}`);
+  res.send("delete folder");
 });
 
 module.exports = folderRouter;

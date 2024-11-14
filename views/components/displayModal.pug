@@ -2,9 +2,9 @@ section(class="displayModal")
     h2 Folders:
     ul(class="folders") 
         each folder in folders
-            - const editPath = "/editFolder?folderId=" + folder.id
-            - const openPath = "/openFolder?folderId=" + folder.id
-            - const deletePath = "/deleteFolder?folderId=" + folder.id
+            - const editPath = "/editFolder/" + folder.id
+            - const openPath = "/openFolder/" + folder.id
+            - const deletePath = "/deleteFolder/" + folder.id
             if folder.base === true 
                 li(class="defaultFolder") MAIN
                     .buttonContainer
