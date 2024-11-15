@@ -30,7 +30,7 @@ folderRouter.get("/editFolder/:folderId", (req, res) => {
   console.log("editFolder get route reached");
   const folderId = req.params.folderId;
   console.log(`folderId: ${folderId}`);
-  res.send("edit folder");
+  res.render("./views/pages/editFolder", { title: "Edit Folder Name" });
 });
 
 
@@ -38,7 +38,7 @@ folderRouter.post("/editFolder/:folderId", (req, res) => {
   console.log("editFolder post route reached");
   const folderId = req.params.folderId;
   console.log(`folderId: ${folderId}`);
-  res.send("edit folder");
+  res.send("edit folder post route");
 });
 
 folderRouter.post("/deleteFolder/:folderId", (req, res) => {
