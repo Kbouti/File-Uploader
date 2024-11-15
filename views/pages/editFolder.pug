@@ -1,2 +1,4 @@
 include ../components/head
 h1=title
+form(action="/editFolder/:folderid", method="post") 
+    input(type="text" name="folderName" placeholder=oldName)

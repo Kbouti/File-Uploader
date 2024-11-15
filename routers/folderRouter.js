@@ -26,12 +26,7 @@ folderRouter.get("/openFolder/:folderId", (req, res) => {
   res.send("open folder with id: " + folderId);
 });
 
-folderRouter.get("/editFolder/:folderId", (req, res) => {
-  console.log("editFolder get route reached");
-  const folderId = req.params.folderId;
-  console.log(`folderId: ${folderId}`);
-  res.render("./views/pages/editFolder", { title: "Edit Folder Name" });
-});
+folderRouter.get("/editFolder/:folderId", folderController.editFolderGet);
 
 
 folderRouter.post("/editFolder/:folderId", (req, res) => {

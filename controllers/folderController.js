@@ -60,8 +60,27 @@ exports.createFolder = async (req, res, next) => {
   next();
 };
 
-exports.editFolder = async (req, res, next) => {
-  console.log(`editFolder controller function called`);
-//   This gets called when the edit folder form gets submitted. 
-// First we need to render a form to edit the folder
+exports.editFolderGet = async (req, res, next) => {
+  console.log(`editFolderGet controller function called`);
+  const folderId = req.params.folderId;
+
+
+const folder = await prisma.folder.findUnique({
+    where: {
+      id: folderId,
+    }
+  });
+
+  const oldName = folder.name;
+// Need to adapt this if folder is main/base folder
+
+  //   Need to get folder name from id
+  console.log(`folderId: ${folderId}`);
+  res.render("./views/pages/editFolder", { title: `Edit ${oldName} Folder`, oldName });
+};
+
+exports.editFolderPost = async (req, res, next) => {
+  console.log(`editFolderPost controller function called`);
+  //   This gets called when the edit folder form gets submitted.
+  // First we need to render a form to edit the folder
 };
