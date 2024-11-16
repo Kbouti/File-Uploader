@@ -63,20 +63,21 @@ exports.createFolder = async (req, res, next) => {
 exports.editFolderGet = async (req, res, next) => {
   console.log(`editFolderGet controller function called`);
   const folderId = req.params.folderId;
+  console.log(`folderId: ${folderId}`);
 
-
-const folder = await prisma.folder.findUnique({
+  const folder = await prisma.folder.findUnique({
     where: {
       id: folderId,
-    }
+    },
   });
-
   const oldName = folder.name;
-// Need to adapt this if folder is main/base folder
+  // Need to adapt this if folder is main/base folder
+  // Or do we even want the ability to edit the main/base folder?
 
-  //   Need to get folder name from id
-  console.log(`folderId: ${folderId}`);
-  res.render("./views/pages/editFolder", { title: `Edit ${oldName} Folder`, oldName });
+  res.render("./views/pages/editFolder", {
+    title: `Edit ${oldName} Folder`,
+    oldName,
+  });
 };
 
 exports.editFolderPost = async (req, res, next) => {
