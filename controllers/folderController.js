@@ -82,6 +82,41 @@ exports.editFolderGet = async (req, res, next) => {
 
 exports.editFolderPost = async (req, res, next) => {
   console.log(`editFolderPost controller function called`);
+
+  const folderId = req.params.folderId;
+  const newName = req.body.folderName;
+
+  console.log(`folderId: ${folderId}`);
+// We haven't gotten folderId correctly yet, that's why our prisma operation isn
+
+const folder = await prisma.folder.findUnique({
+    where: {
+      id: folderId,
+    },
+  });
+
+const userId = folder.ownerId;
+
+console.log(`ownerId: ${userId}`);
+
+
+//   await prisma.folder.update({
+//     where: {
+//       id: folderId,
+//     },
+//     data: {
+//       name: newName,
+//     },
+//   });
+
+res.redirect("/");
+
+//   res.render("./views/pages/home", {
+//     title: "Success!",
+//     message: "Folder name updated",
+//     user: req.user,
+//   });
+
   //   This gets called when the edit folder form gets submitted.
   // First we need to render a form to edit the folder
 };

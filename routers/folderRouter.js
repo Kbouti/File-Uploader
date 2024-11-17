@@ -29,12 +29,8 @@ folderRouter.get("/openFolder/:folderId", (req, res) => {
 folderRouter.get("/editFolder/:folderId", folderController.editFolderGet);
 
 
-folderRouter.post("/editFolder/:folderId", (req, res) => {
-  console.log("editFolder post route reached");
-  const folderId = req.params.folderId;
-  console.log(`folderId: ${folderId}`);
-  res.send("edit folder post route");
-});
+folderRouter.post("/editFolder/:folderId", folderController.editFolderPost);
+
 
 folderRouter.post("/deleteFolder/:folderId", (req, res) => {
   console.log("deleteFolder post route reached");
