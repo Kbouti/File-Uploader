@@ -2,8 +2,11 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const cloudinary = require("cloudinary").v2;
+
 cloudinary.config({
   cloud_name: "dgduxhvpu",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // This is an example from the cloudinary tutorial, it should fetch the url from our ebikeBeach image.
@@ -18,6 +21,8 @@ const url = cloudinary.url("eBikeBeach_copy_lo6zga", {
     { width: 1200 },
   ],
 });
+// This works!! If we redirect to this url it will display our image.
+// So we need to combine our multer and cloudinary code to upload our files to cloudinary and then store the link url in our database.
 
 // *****************************************************************************************************************************************************************
 // Delete functions for maintaining dev database
@@ -39,6 +44,25 @@ exports.deleteAllFolders = async (user) => {
 
 exports.createFile = async (req, res, next) => {
   console.log(`Create file controller function called`);
+
+  // req/file should be the file that was uploaded
+  console.log(`req.file: ${req.file}`);
+
+  // We need to upload our file to cloudinary here
+  const uploadResult = await cloudinary.uploader
+    .upload(req.file.path, {
+      public_id: req.file.originalname,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  console.log(`uploadResult: ${uploadResult}`);
+  // I believe this seems to have worked..... We need to get a url from cloudinary to store in our database.
+// *****************************************************************************************************************************************************************
+// Continue here
+
+
+
 
   const folderId = req.body.folder;
   console.log(`folderId: ${folderId}`);
