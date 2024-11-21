@@ -48,16 +48,24 @@ exports.createFile = async (req, res, next) => {
   // req/file should be the file that was uploaded
   console.log(`req.file: ${req.file}`);
 
+  const originalName = req.file.originalname;
+  console.log(`originalName: ${originalName}`);
+
   // We need to upload our file to cloudinary here
   const uploadResult = await cloudinary.uploader
     .upload(req.file.path, {
-      public_id: req.file.originalname,
+      public_id: originalName,
     })
     .catch((error) => {
       console.log(error);
     });
   console.log(`uploadResult: ${uploadResult}`);
   // I believe this seems to have worked..... We need to get a url from cloudinary to store in our database.
+
+  console.log(`JSON.stringify(uploadResult.url): ${JSON.stringify(uploadResult)}`);
+
+  console.log(`uploadResult.url: ${uploadResult.url}`);
+
 // *****************************************************************************************************************************************************************
 // Continue here
 
@@ -67,15 +75,13 @@ exports.createFile = async (req, res, next) => {
   const folderId = req.body.folder;
   console.log(`folderId: ${folderId}`);
 
-  const folder = await prisma.folder.findUnique({
-    where: {
-      id: folderId,
-    },
-  });
-  console.log(`json.folder: ${JSON.stringify(folder)}`);
+  // const folder = await prisma.folder.findUnique({
+  //   where: {
+  //     id: folderId,
+  //   },
+  // });
+  // console.log(`json.folder: ${JSON.stringify(folder)}`);
 
-  const originalName = req.file.originalname;
-  console.log(`originalName: ${originalName}`);
 
   const fileType = req.file.mimetype;
   console.log(`fileType: ${fileType}`);
@@ -92,6 +98,8 @@ exports.createFile = async (req, res, next) => {
       Files: {
         create: {
           name: originalName,
+          url: uploadResult.url,
+          fileType: fileType,
           folder: {
             connect: {
               id: folderId,

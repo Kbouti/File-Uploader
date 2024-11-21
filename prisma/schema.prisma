@@ -54,6 +54,8 @@ model Folder {
 model File {
   id       String @id @default(cuid())
   name     String
+  url      String
+  fileType String
   owner    User   @relation(fields: [ownerId], references: [id])
   ownerId  String
   folderId String
