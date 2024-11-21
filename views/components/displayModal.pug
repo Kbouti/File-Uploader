@@ -6,7 +6,8 @@ section(class="displayModal")
             - const openPath = "/openFolder/" + folder.id
             - const deletePath = "/deleteFolder/" + folder.id
             if folder.base === true 
-                li(class="defaultFolder") MAIN
+                li(class="defaultFolder folder") 
+                    .folderName MAIN
                     .buttonContainer
                         form(action=editPath method="get")
                             //- input(type="hidden" name="folderId" value=folder.id)
@@ -17,7 +18,8 @@ section(class="displayModal")
                             button(type="submit")
                                 span(class = "material-symbols-outlined") folder_open    
             else 
-                li=folder.name
+                li(class="folder")
+                    .folderName=folder.name
                     .buttonContainer
                         form(action=editPath method="get")
                             input(type="hidden" name="folderId" value=folder.id)
