@@ -1,10 +1,9 @@
 include ../components/head
 h1=title
-- const editPath = "/editFolder/" + folder.id
-//- I don't think we've successfully passed the folder name to this page yet
-
+- const editPath = "/editFolder/" + folderId
 form(action=editPath, method="post") 
     input(type="text" name="folderName" placeholder=oldName)
+    input(type="hidden" name="folderId" value=folderId)
     button(type="cancel") 
         a(href="/") Cancel
     button(type="submit") Save
