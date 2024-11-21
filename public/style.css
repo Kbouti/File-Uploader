@@ -137,3 +137,7 @@ body {
   flex-direction: row;
   gap: .2rem;
 }
+
+button:hover {
+  cursor: pointer;
+}
