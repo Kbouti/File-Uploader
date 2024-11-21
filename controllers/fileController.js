@@ -44,12 +44,12 @@ exports.deleteAllFolders = async (user) => {
 
 exports.createFile = async (req, res, next) => {
   console.log(`Create file controller function called`);
-
-  // req/file should be the file that was uploaded
-  console.log(`req.file: ${req.file}`);
+  // req.file should be the file that was uploaded
 
   const originalName = req.file.originalname;
-  console.log(`originalName: ${originalName}`);
+  const folderId = req.body.folder;
+  const fileType = req.file.mimetype;
+  const size = req.file.size;
 
   // We need to upload our file to cloudinary here
   const uploadResult = await cloudinary.uploader
@@ -59,37 +59,9 @@ exports.createFile = async (req, res, next) => {
     .catch((error) => {
       console.log(error);
     });
-  console.log(`uploadResult: ${uploadResult}`);
-  // I believe this seems to have worked..... We need to get a url from cloudinary to store in our database.
-
-  console.log(`JSON.stringify(uploadResult.url): ${JSON.stringify(uploadResult)}`);
-
-  console.log(`uploadResult.url: ${uploadResult.url}`);
-
-// *****************************************************************************************************************************************************************
-// Continue here
 
 
-
-
-  const folderId = req.body.folder;
-  console.log(`folderId: ${folderId}`);
-
-  // const folder = await prisma.folder.findUnique({
-  //   where: {
-  //     id: folderId,
-  //   },
-  // });
-  // console.log(`json.folder: ${JSON.stringify(folder)}`);
-
-
-  const fileType = req.file.mimetype;
-  console.log(`fileType: ${fileType}`);
-
-  const size = req.file.size;
-  console.log(`size: ${size}`);
-
-  // This Successfully creates a file entry in our database. It's unclear if it's actually storing the file in the database or just the metadata.
+  // This Successfully creates a file entry in our database. It stores the url for the image on cloudinary
   await prisma.user.update({
     where: {
       id: req.user.id,
@@ -100,6 +72,7 @@ exports.createFile = async (req, res, next) => {
           name: originalName,
           url: uploadResult.url,
           fileType: fileType,
+          fileSize: size,
           folder: {
             connect: {
               id: folderId,
